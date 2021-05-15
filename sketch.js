@@ -1,48 +1,43 @@
 const Engine = Matter.Engine;
-const Bodies = Matter.Bodies;
 const World = Matter.World;
+const Bodies = Matter.Bodies;
+const Body = Matter.Body;
 
-var world, engine;
+var engine, world;
 
-var car1, car2, car3, wall;
-var speed, weight;
 function setup() {
-  createCanvas(1500,400);
-  car1= createSprite(200, 75, 80, 40);
-  car2= createSprite(200, 175, 80, 40);
-  car3= createSprite(200, 275, 80, 40);
-  speed=random(55,90);
-  weight=random(400,1500);
-  wall=createSprite(1500,200,50,height);
-  
+	createCanvas(800, 700);
+	engine = Engine.create();
+	world = engine.world;
+
+	//Create the Bodies Here.
+	ball = new Ball(100,500,10);
+
+	ground = new Ground(400,700,800,25);
+
+	box1 = new Box(575,640,25,100);
+	box2 = new Box(650,678,170,25);
+	box3 = new Box(725,640,25,100);
+
+	Engine.run(engine);
 }
 
 function draw() {
-  background(125,255,125); 
-  //Engine.update(engine);
-  car1.velocityX = speed;
-  car2.velocityX = speed;
-  car3.velocityX = speed;
-  if(car1.speed = 55,70){
-    car1.shapeColor = "red"
-  }
-  else{
-car1.shapeColor = "green"
-  }
+  rectMode(CENTER);
+  background(0);
+  Engine.update(engine);
 
-  if(car2.speed = 55,70){
-    car2.shapeColor = "red"
-  }else{
-car2.shapeColor = "green"
-  }
-  if(car3.speed = 55,70){
-    car3.shapeColor = "red"
-  }else{
-    car3.shapeColor = "green"
-      }
-
-
+  ball.display();
+  ground.display();
+  box1.display();
+  box2.display();
+  box3.display();
   
-
   drawSprites();
+}
+
+function keyPressed(){
+	if(keyCode === UP_ARROW){
+		Matter.Body.applyForce(ball.body, ball.body.position, {x:15, y: -15})
+	}
 }
